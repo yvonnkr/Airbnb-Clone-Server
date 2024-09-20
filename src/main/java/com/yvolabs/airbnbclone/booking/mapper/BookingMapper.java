@@ -1,6 +1,7 @@
 package com.yvolabs.airbnbclone.booking.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 /**
  * @author Yvonne N
@@ -10,4 +11,6 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface BookingMapper {
+    BookingMapper INSTANCE = Mappers.getMapper(BookingMapper.class);
+
 }

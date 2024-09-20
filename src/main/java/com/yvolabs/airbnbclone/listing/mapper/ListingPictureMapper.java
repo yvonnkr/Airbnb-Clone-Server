@@ -1,6 +1,7 @@
 package com.yvolabs.airbnbclone.listing.mapper;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 
 /**
  * @author Yvonne N
@@ -10,4 +11,5 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface ListingPictureMapper {
+    ListingPictureMapper INSTANCE = Mappers.getMapper(ListingPictureMapper.class);
 }

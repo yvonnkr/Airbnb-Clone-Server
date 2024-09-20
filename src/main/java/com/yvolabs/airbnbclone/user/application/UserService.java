@@ -16,6 +16,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.yvolabs.airbnbclone.user.mapper.UserMapper.INSTANCE;
+
 /**
  * @author Yvonne N
  * @version 1.0
@@ -28,7 +30,6 @@ public class UserService {
 
     private static final String UPDATED_AT_KEY = "updated_at";
     private final UserRepository userRepository;
-    private final UserMapper userMapper;
 
     @Transactional(readOnly = true)
     public ReadUserDTO getAuthenticatedUserFromSecurityContext() {
@@ -40,7 +41,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public Optional<ReadUserDTO> getByEmail(String email) {
         Optional<User> oneByEmail = userRepository.findOneByEmail(email);
-        return oneByEmail.map(userMapper::readUserDTOToUser);
+        return oneByEmail.map(INSTANCE::readUserDTOToUser);
     }
 
     public void syncWithIdp(OAuth2User oAuth2User, boolean forceResync) {
@@ -80,7 +81,7 @@ public class UserService {
 
     public Optional<ReadUserDTO> getByPublicId(UUID publicId) {
         Optional<User> oneByPublicId = userRepository.findOneByPublicId(publicId);
-        return oneByPublicId.map(userMapper::readUserDTOToUser);
+        return oneByPublicId.map(INSTANCE::readUserDTOToUser);
     }
 
 }
