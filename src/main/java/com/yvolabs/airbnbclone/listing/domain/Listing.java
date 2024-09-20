@@ -16,8 +16,7 @@ import java.util.UUID;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 @Builder
 @Entity
 @Table(name = "listing")
