@@ -3,6 +3,7 @@ package com.yvolabs.airbnbclone.user.domain;
 import com.yvolabs.airbnbclone.sharedkernel.domain.AbstractAuditingEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.HashSet;
@@ -18,7 +19,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Builder
+@SuperBuilder
+@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "airbnb_user")
 public class User extends AbstractAuditingEntity<Long> {
