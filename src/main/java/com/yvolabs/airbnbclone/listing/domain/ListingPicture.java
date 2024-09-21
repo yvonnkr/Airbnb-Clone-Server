@@ -3,6 +3,7 @@ package com.yvolabs.airbnbclone.listing.domain;
 import com.yvolabs.airbnbclone.sharedkernel.domain.AbstractAuditingEntity;
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 /**
  * @author Yvonne N
@@ -11,9 +12,9 @@ import lombok.*;
  */
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-@Builder
+@Data
+@SuperBuilder
+@EqualsAndHashCode(callSuper=false)
 @Entity
 @Table(name = "listing_picture")
 public class ListingPicture extends AbstractAuditingEntity<Long> {
