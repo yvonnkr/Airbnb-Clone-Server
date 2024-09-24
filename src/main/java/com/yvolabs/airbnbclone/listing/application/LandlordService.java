@@ -6,6 +6,7 @@ import com.yvolabs.airbnbclone.listing.application.dto.DisplayCardListingDTO;
 import com.yvolabs.airbnbclone.listing.application.dto.SaveListingDTO;
 import com.yvolabs.airbnbclone.listing.application.dto.sub.PictureDTO;
 import com.yvolabs.airbnbclone.listing.domain.Listing;
+import com.yvolabs.airbnbclone.listing.mapper.ListingMapper;
 import com.yvolabs.airbnbclone.listing.repository.ListingRepository;
 import com.yvolabs.airbnbclone.sharedkernel.service.State;
 import com.yvolabs.airbnbclone.user.application.Auth0Service;
@@ -18,8 +19,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
-
-import static com.yvolabs.airbnbclone.listing.mapper.ListingMapper.INSTANCE;
 
 /**
  * @author Yvonne N
@@ -35,9 +34,10 @@ public class LandlordService {
     private final UserService userService;
     private final Auth0Service auth0Service;
     private final PictureService pictureService;
+    private final ListingMapper listingMapper;
 
     public CreatedListingDTO create(SaveListingDTO saveListingDTO) {
-        Listing newListing = INSTANCE.saveListingDTOToListing(saveListingDTO);
+        Listing newListing = listingMapper.saveListingDTOToListing(saveListingDTO);
 
         ReadUserDTO userConnected = userService.getAuthenticatedUserFromSecurityContext();
         newListing.setLandlordPublicId(userConnected.publicId());
@@ -49,13 +49,13 @@ public class LandlordService {
 
         auth0Service.addLandlordRoleToUser(userConnected);
 
-        return INSTANCE.listingToCreatedListingDTO(savedListing);
+        return listingMapper.listingToCreatedListingDTO(savedListing);
     }
 
     @Transactional(readOnly = true)
     public List<DisplayCardListingDTO> getAllProperties(ReadUserDTO landlord) {
         List<Listing> properties = listingRepository.findAllByLandlordPublicIdFetchCoverPicture(landlord.publicId());
-        return INSTANCE.listingToDisplayCardListingDTOs(properties);
+        return listingMapper.listingToDisplayCardListingDTOs(properties);
     }
 
     @Transactional

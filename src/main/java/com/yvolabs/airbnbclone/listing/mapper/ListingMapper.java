@@ -5,8 +5,10 @@ import com.yvolabs.airbnbclone.listing.application.dto.DisplayCardListingDTO;
 import com.yvolabs.airbnbclone.listing.application.dto.SaveListingDTO;
 import com.yvolabs.airbnbclone.listing.application.dto.vo.PriceVO;
 import com.yvolabs.airbnbclone.listing.domain.Listing;
-import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
+import org.mapstruct.BeanMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
@@ -18,8 +20,6 @@ import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {ListingPictureMapper.class})
 public interface ListingMapper {
-
-    ListingMapper INSTANCE = Mappers.getMapper(ListingMapper.class);
 
     @Mapping(target = "landlordPublicId", ignore = true)
     @Mapping(target = "publicId", ignore = true)

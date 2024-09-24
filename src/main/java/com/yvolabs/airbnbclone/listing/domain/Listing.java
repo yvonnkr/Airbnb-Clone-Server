@@ -19,8 +19,9 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@ToString(exclude = "pictures")
 @SuperBuilder
-@EqualsAndHashCode(callSuper = true)
+@EqualsAndHashCode(callSuper = true, exclude = "pictures")
 @Entity
 @Table(name = "listing")
 public class Listing extends AbstractAuditingEntity<Long> {
