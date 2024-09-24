@@ -5,7 +5,6 @@ import com.yvolabs.airbnbclone.listing.domain.ListingPicture;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
 
 import java.util.List;
 import java.util.Set;
@@ -18,8 +17,6 @@ import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ListingPictureMapper {
-    ListingPictureMapper INSTANCE = Mappers.getMapper(ListingPictureMapper.class);
-
 
     Set<ListingPicture> pictureDTOsToListingPictures(List<PictureDTO> pictureDTOs);
 
