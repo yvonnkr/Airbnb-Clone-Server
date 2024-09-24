@@ -1,10 +1,14 @@
 package com.yvolabs.airbnbclone.listing.mapper;
 
 import com.yvolabs.airbnbclone.listing.application.dto.CreatedListingDTO;
+import com.yvolabs.airbnbclone.listing.application.dto.DisplayCardListingDTO;
 import com.yvolabs.airbnbclone.listing.application.dto.SaveListingDTO;
+import com.yvolabs.airbnbclone.listing.application.dto.vo.PriceVO;
 import com.yvolabs.airbnbclone.listing.domain.Listing;
 import org.mapstruct.*;
 import org.mapstruct.factory.Mappers;
+
+import java.util.List;
 
 /**
  * @author Yvonne N
@@ -36,6 +40,16 @@ public interface ListingMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     CreatedListingDTO listingToCreatedListingDTO(Listing listing);
+
+    @Mapping(target = "cover", source = "pictures")
+    List<DisplayCardListingDTO> listingToDisplayCardListingDTOs(List<Listing> listings);
+
+    @Mapping(target = "cover", source = "pictures", qualifiedByName = "extract-cover")
+    DisplayCardListingDTO listingToDisplayCardListingDTO(Listing listing);
+
+    default PriceVO mapPriceToPriceVO(int price) {
+        return new PriceVO(price);
+    }
 
 
 }
