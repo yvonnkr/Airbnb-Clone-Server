@@ -3,6 +3,7 @@ package com.yvolabs.airbnbclone.listing.application;
 
 import com.yvolabs.airbnbclone.listing.application.dto.CreatedListingDTO;
 import com.yvolabs.airbnbclone.listing.application.dto.DisplayCardListingDTO;
+import com.yvolabs.airbnbclone.listing.application.dto.ListingCreateBookingDTO;
 import com.yvolabs.airbnbclone.listing.application.dto.SaveListingDTO;
 import com.yvolabs.airbnbclone.listing.application.dto.sub.PictureDTO;
 import com.yvolabs.airbnbclone.listing.domain.Listing;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 /**
@@ -69,4 +71,7 @@ public class LandlordService {
     }
 
 
+    public Optional<ListingCreateBookingDTO> getByListingPublicId(UUID publicId) {
+        return listingRepository.findByPublicId(publicId).map(listingMapper::mapListingToListingCreateBookingDTO);
+    }
 }

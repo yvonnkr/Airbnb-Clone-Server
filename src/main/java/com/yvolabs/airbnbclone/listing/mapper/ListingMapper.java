@@ -1,9 +1,6 @@
 package com.yvolabs.airbnbclone.listing.mapper;
 
-import com.yvolabs.airbnbclone.listing.application.dto.CreatedListingDTO;
-import com.yvolabs.airbnbclone.listing.application.dto.DisplayCardListingDTO;
-import com.yvolabs.airbnbclone.listing.application.dto.DisplayListingDTO;
-import com.yvolabs.airbnbclone.listing.application.dto.SaveListingDTO;
+import com.yvolabs.airbnbclone.listing.application.dto.*;
 import com.yvolabs.airbnbclone.listing.application.dto.vo.PriceVO;
 import com.yvolabs.airbnbclone.listing.domain.Listing;
 import org.mapstruct.BeanMapping;
@@ -62,4 +59,7 @@ public interface ListingMapper {
     @Mapping(target = "category", source = "bookingCategory")
     @Mapping(target = "price.value", source = "price")
     DisplayListingDTO listingToDisplayListingDTO(Listing listing);
+
+    @Mapping(target = "listingPublicId", source = "publicId")
+    ListingCreateBookingDTO mapListingToListingCreateBookingDTO(Listing listing);
 }
