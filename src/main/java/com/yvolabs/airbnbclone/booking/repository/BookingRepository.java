@@ -21,4 +21,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     boolean bookingExistsAtInterval(OffsetDateTime startDate, OffsetDateTime endDate, UUID fkListing);
 
     List<Booking> findAllByFkListing(UUID fkListing);
+
+    List<Booking> findAllByFkTenant(UUID fkTenant);
+
+    int deleteBookingByFkTenantAndPublicId(UUID tenantPublicId, UUID bookingPublicId);
+
+    int deleteBookingByPublicIdAndFkListing(UUID bookingPublicId, UUID listingPublicId);
 }
