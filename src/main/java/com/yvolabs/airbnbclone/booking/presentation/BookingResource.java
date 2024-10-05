@@ -4,6 +4,7 @@ import com.yvolabs.airbnbclone.booking.application.BookingService;
 import com.yvolabs.airbnbclone.booking.application.dto.BookedDateDTO;
 import com.yvolabs.airbnbclone.booking.application.dto.BookedListingDTO;
 import com.yvolabs.airbnbclone.booking.application.dto.NewBookingDTO;
+import com.yvolabs.airbnbclone.infrastructure.config.SecurityUtils;
 import com.yvolabs.airbnbclone.sharedkernel.service.State;
 import com.yvolabs.airbnbclone.sharedkernel.service.StatusNotification;
 import jakarta.validation.Valid;
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -60,5 +62,11 @@ public class BookingResource {
         } else {
             return ResponseEntity.ok(bookingPublicId);
         }
+    }
+
+    @GetMapping("get-booked-listing-for-landlord")
+    @PreAuthorize("hasAnyRole('" + SecurityUtils.ROLE_LANDLORD + "')")
+    public ResponseEntity<List<BookedListingDTO>> getBookedListingForLandlord() {
+        return ResponseEntity.ok(bookingService.getBookedListingForLandlord());
     }
 }

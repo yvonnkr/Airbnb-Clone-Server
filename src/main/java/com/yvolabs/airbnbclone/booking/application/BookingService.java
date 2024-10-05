@@ -103,6 +103,15 @@ public class BookingService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public List<BookedListingDTO> getBookedListingForLandlord() {
+        ReadUserDTO connectedUser = userService.getAuthenticatedUserFromSecurityContext();
+        List<DisplayCardListingDTO> allProperties = landlordService.getAllProperties(connectedUser);
+        List<UUID> allPropertyPublicIds = allProperties.stream().map(DisplayCardListingDTO::publicId).toList();
+        List<Booking> allBookings = bookingRepository.findAllByFkListingIn(allPropertyPublicIds);
+        return mapBookingToBookedListing(allBookings, allProperties);
+    }
+
     private List<BookedListingDTO> mapBookingToBookedListing(List<Booking> allBookings, List<DisplayCardListingDTO> allListings) {
         return allBookings.stream().map(booking -> {
             DisplayCardListingDTO displayCardListingDTO = allListings

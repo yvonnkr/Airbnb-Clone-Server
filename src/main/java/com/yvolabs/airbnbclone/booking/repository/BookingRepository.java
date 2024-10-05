@@ -27,4 +27,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
     int deleteBookingByFkTenantAndPublicId(UUID tenantPublicId, UUID bookingPublicId);
 
     int deleteBookingByPublicIdAndFkListing(UUID bookingPublicId, UUID listingPublicId);
+
+    List<Booking> findAllByFkListingIn(List<UUID> allPropertyPublicIds);
 }
