@@ -112,6 +112,14 @@ public class BookingService {
         return mapBookingToBookedListing(allBookings, allProperties);
     }
 
+    @Transactional(readOnly = true)
+    public List<UUID> getBookingMatchByListingIdsAndBookedDate(List<UUID> listingId, BookedDateDTO bookedDateDTO) {
+        return bookingRepository.findAllMatchWithDate(listingId, bookedDateDTO.startDate(), bookedDateDTO.endDate())
+                .stream()
+                .map(Booking::getFkListing)
+                .toList();
+    }
+
     private List<BookedListingDTO> mapBookingToBookedListing(List<Booking> allBookings, List<DisplayCardListingDTO> allListings) {
         return allBookings.stream().map(booking -> {
             DisplayCardListingDTO displayCardListingDTO = allListings
